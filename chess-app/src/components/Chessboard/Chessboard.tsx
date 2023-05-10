@@ -32,15 +32,19 @@ for (let i = 0; i < 8; i++) {
 for (let i = 0; i < 8; i++) {
   pieces.push({ image: "assets/images/pawn_w.png", x: i, y: 1 });
 }
-// peças brancas
-pieces.push({ image: "assets/images/rook_w.png", x: 0, y: 0 });
-pieces.push({ image: "assets/images/rook_w.png", x: 7, y: 0 });
-pieces.push({ image: "assets/images/knight_w.png", x: 1, y: 0 });
-pieces.push({ image: "assets/images/knight_w.png", x: 6, y: 0 });
-pieces.push({ image: "assets/images/bishop_w.png", x: 2, y: 0 });
-pieces.push({ image: "assets/images/bishop_w.png", x: 5, y: 0 });
-pieces.push({ image: "assets/images/queen_w.png", x: 3, y: 0 });
-pieces.push({ image: "assets/images/king_w.png", x: 4, y: 0 });
+// função para mover as peças no tabuleiro
+function grabPiece(e: React.MouseEvent) {
+  const element = e.target as HTMLElement;
+  if(element.classList.contains("chess-piece")) {
+
+    const x = e.clientX;
+    const y = e.clientY;
+    element.style.position = "absolute";
+    element.style.left = `${x}px`;
+    element.style.top = `${y}px`;
+  }
+}
+
 // criando as áreas do tabuleiro
 export default function Chessboard() {
   let board = [];
@@ -59,5 +63,5 @@ export default function Chessboard() {
       board.push(<Tile key={`${j}, ${i}`} image={image} number={number} />);
     }
   }
-  return <div id="chessboard">{board}</div>;
+  return <div onMouseDown={e => grabPiece(e)} id="chessboard">{board}</div>;
 }
