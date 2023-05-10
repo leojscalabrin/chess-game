@@ -37,8 +37,7 @@ let activePiece: HTMLElement | null = null;
 
 function grabPiece(e: React.MouseEvent) {
   const element = e.target as HTMLElement;
-  if(element.classList.contains("chess-piece")) {
-
+  if (element.classList.contains("chess-piece")) {
     const x = e.clientX - 50;
     const y = e.clientY - 50;
     element.style.position = "absolute";
@@ -58,7 +57,12 @@ function movePiece(e: React.MouseEvent) {
     activePiece.style.top = `${y}px`;
   }
 }
-
+//função para soltar a peça agarrada
+function dropPiece(e: React.MouseEvent) {
+  if(activePiece) {
+    activePiece = null;
+  }
+}
 // criando as áreas do tabuleiro
 export default function Chessboard() {
   let board = [];
@@ -77,6 +81,14 @@ export default function Chessboard() {
       board.push(<Tile key={`${j}, ${i}`} image={image} number={number} />);
     }
   }
-  return <div onMouseMove={(e) => movePiece(e)} onMouseDown={e => grabPiece(e)} id="chessboard">{board}</div>;
-  
+  return (
+    <div
+      onMouseMove={(e) => movePiece(e)}
+      onMouseDown={(e) => grabPiece(e)}
+      onMouseUp={(e) => dropPiece(e)}
+      id="chessboard"
+    >
+      {board}
+    </div>
+  );
 }
