@@ -57,19 +57,34 @@ export default function Chessboard() {
   function movePiece(e: React.MouseEvent) {
     const chessboard = chessboardRef.current;
     if (activePiece && chessboard) {
-      const minX = parseInt(chessboard.style.left);
-      const minY = parseInt(chessboard.style.top);
+      const minX = chessboard.offsetLeft - 25;
+      const minY = chessboard.offsetTop - 25;
+      const maxX = chessboard.offsetLeft + chessboard.clientWidth - 75;
+      const maxY = chessboard.offsetTop + chessboard.clientHeight - 75;
       const x = e.clientX - 50;
       const y = e.clientY - 50;
       activePiece.style.position = "absolute";
-      // activePiece.style.left = `${x}px`;
-      // activePiece.style.top = `${y}px`;
-
-      if(x < minX) {
+      // se o x é menor que o mínimo
+      if (x < minX) {
         activePiece.style.left = `${minX}px`;
+      // se o x é maior que o máximo
+      } else if(x > maxX) {
+        activePiece.style.left = `${maxX}px`;
+      // se o x está dentro das restrições
       } else {
         activePiece.style.left = `${x}px`;
       }
+      // se o y é menor que o mínimo
+      if (y < minY) {
+        activePiece.style.top = `${minY}px`;
+      // se o y é maior que o máximo
+      } else if(y > maxY) {
+        activePiece.style.top = `${maxY}px`;
+      // se o y está dentro das restrições
+      } else {
+        activePiece.style.top = `${y}px`;
+      }
+
     }
   }
   //função para soltar a peça agarrada
