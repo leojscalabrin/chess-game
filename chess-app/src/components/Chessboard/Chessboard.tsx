@@ -90,12 +90,16 @@ export default function Chessboard() {
   }
   //função para soltar a peça agarrada
   function dropPiece(e: React.MouseEvent) {
-    if (activePiece) {
+    const chessboard = chessboardRef.current;
+    if (activePiece && chessboard) {
+      const x = Math.floor((e.clientX - chessboard.offsetLeft) / 100);
+      const y = Math.abs(Math.ceil((e.clientY - chessboard.offsetTop - 800) / 100));
+
       setPieces(value => {
         const pieces = value.map(p => {
           if(p.x === 0 && p.y === 0) {
-            p.x = 5;
-            p.y = 5;
+            p.x = x;
+            p.y = y;
           }
           return p;
         })
