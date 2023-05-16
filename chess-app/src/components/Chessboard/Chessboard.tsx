@@ -37,29 +37,27 @@ for (let i = 0; i < 8; i++) {
 
 // criando as áreas do tabuleiro
 export default function Chessboard() {
+  const [activePiece, setActivePiece] = useState<HTMLElement | null>(null);
   const [gridX, setGridX] = useState(0);
   const [gridY, setGridY] = useState(0);
   const [pieces, setPieces] = useState<Piece[]>(initialBoardState);
   const chessboardRef = useRef<HTMLDivElement>(null);
 
   // função para agarrar a peça do tabuleiro
-  let activePiece: HTMLElement | null = null;
-
   function grabPiece(e: React.MouseEvent) {
     const element = e.target as HTMLElement;
     const chessboard = chessboardRef.current;
     if (element.classList.contains("chess-piece") && chessboard) {
-      const gridX = Math.floor((e.clientX - chessboard.offsetLeft) / 100);
-      const gridY = Math.abs(Math.ceil((e.clientY - chessboard.offsetTop - 800) / 100));
-      setGridX(gridX);
-      setGridY(gridY);
+      setGridX(Math.floor((e.clientX - chessboard.offsetLeft) / 100));
+      setGridY(Math.abs(Math.ceil((e.clientY - chessboard.offsetTop - 800) / 100)));
+
       const x = e.clientX - 50;
       const y = e.clientY - 50;
       element.style.position = "absolute";
       element.style.left = `${x}px`;
       element.style.top = `${y}px`;
 
-      activePiece = element;
+      setActivePiece(element);
     }
   }
   // função para mover a peça agarrada
@@ -112,7 +110,7 @@ export default function Chessboard() {
         })
         return pieces;
       })
-      activePiece = null;
+      setActivePiece(null);
     }
   }
 
