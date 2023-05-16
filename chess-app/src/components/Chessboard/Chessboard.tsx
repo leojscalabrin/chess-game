@@ -37,6 +37,8 @@ for (let i = 0; i < 8; i++) {
 
 // criando as áreas do tabuleiro
 export default function Chessboard() {
+  const [gridX, setGridX] = useState(0);
+  const [gridY, setGridY] = useState(0);
   const [pieces, setPieces] = useState<Piece[]>(initialBoardState);
   const chessboardRef = useRef<HTMLDivElement>(null);
 
@@ -45,7 +47,12 @@ export default function Chessboard() {
 
   function grabPiece(e: React.MouseEvent) {
     const element = e.target as HTMLElement;
-    if (element.classList.contains("chess-piece")) {
+    const chessboard = chessboardRef.current;
+    if (element.classList.contains("chess-piece") && chessboard) {
+      const gridX = Math.floor((e.clientX - chessboard.offsetLeft) / 100);
+      const gridY = Math.abs(Math.ceil((e.clientY - chessboard.offsetTop - 800) / 100));
+      setGridX(gridX);
+      setGridY(gridY);
       const x = e.clientX - 50;
       const y = e.clientY - 50;
       element.style.position = "absolute";
@@ -97,7 +104,7 @@ export default function Chessboard() {
 
       setPieces(value => {
         const pieces = value.map(p => {
-          if(p.x === 0 && p.y === 0) {
+          if(p.x === gridX && p.y === gridY) {
             p.x = x;
             p.y = y;
           }
