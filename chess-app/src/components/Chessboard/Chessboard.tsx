@@ -10,38 +10,38 @@ interface Piece {
   y: number;
 }
 
+const initialBoardState: Piece[] = [];
+
+// estado inicial das peças
+for (let p = 0; p < 2; p++) {
+  const type = p === 0 ? "b" : "w";
+  const y = p === 0 ? 7 : 0;
+
+  initialBoardState.push({ image: `assets/images/rook_${type}.png`, x: 0, y });
+  initialBoardState.push({ image: `assets/images/rook_${type}.png`, x: 7, y });
+  initialBoardState.push({ image: `assets/images/knight_${type}.png`, x: 1, y });
+  initialBoardState.push({ image: `assets/images/knight_${type}.png`, x: 6, y });
+  initialBoardState.push({ image: `assets/images/bishop_${type}.png`, x: 2, y });
+  initialBoardState.push({ image: `assets/images/bishop_${type}.png`, x: 5, y });
+  initialBoardState.push({ image: `assets/images/queen_${type}.png`, x: 3, y });
+  initialBoardState.push({ image: `assets/images/king_${type}.png`, x: 4, y });
+}
+// peões pretos
+for (let i = 0; i < 8; i++) {
+  initialBoardState.push({ image: "assets/images/pawn_b.png", x: i, y: 6 });
+}
+// peões brancos
+for (let i = 0; i < 8; i++) {
+  initialBoardState.push({ image: "assets/images/pawn_w.png", x: i, y: 1 });
+}
+
 // criando as áreas do tabuleiro
 export default function Chessboard() {
-  const [pieces, setPieces] = useState<Piece[]>([]);
+  const [pieces, setPieces] = useState<Piece[]>(initialBoardState);
   const chessboardRef = useRef<HTMLDivElement>(null);
 
   // função para agarrar a peça do tabuleiro
   let activePiece: HTMLElement | null = null;
-
-  useEffect(() => {
-    // estado inicial das peças
-    for (let p = 0; p < 2; p++) {
-      const type = p === 0 ? "b" : "w";
-      const y = p === 0 ? 7 : 0;
-
-      pieces.push({ image: `assets/images/rook_${type}.png`, x: 0, y });
-      pieces.push({ image: `assets/images/rook_${type}.png`, x: 7, y });
-      pieces.push({ image: `assets/images/knight_${type}.png`, x: 1, y });
-      pieces.push({ image: `assets/images/knight_${type}.png`, x: 6, y });
-      pieces.push({ image: `assets/images/bishop_${type}.png`, x: 2, y });
-      pieces.push({ image: `assets/images/bishop_${type}.png`, x: 5, y });
-      pieces.push({ image: `assets/images/queen_${type}.png`, x: 3, y });
-      pieces.push({ image: `assets/images/king_${type}.png`, x: 4, y });
-    }
-    // peões pretos
-    for (let i = 0; i < 8; i++) {
-      pieces.push({ image: "assets/images/pawn_b.png", x: i, y: 6 });
-    }
-    // peões brancos
-    for (let i = 0; i < 8; i++) {
-      pieces.push({ image: "assets/images/pawn_w.png", x: i, y: 1 });
-    }
-  }, [pieces]);
 
   function grabPiece(e: React.MouseEvent) {
     const element = e.target as HTMLElement;
@@ -91,7 +91,16 @@ export default function Chessboard() {
   //função para soltar a peça agarrada
   function dropPiece(e: React.MouseEvent) {
     if (activePiece) {
-      pieces[0].x = 5;
+      setPieces(value => {
+        const pieces = value.map(p => {
+          if(p.x === 0 && p.y === 0) {
+            p.x = 5;
+            p.y = 5;
+          }
+          return p;
+        })
+        return pieces;
+      })
       activePiece = null;
     }
   }
