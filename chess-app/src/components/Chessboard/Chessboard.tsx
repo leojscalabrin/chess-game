@@ -1,6 +1,7 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import Tile from "../Tile/Tile";
 import "./Chessboard.css";
+import Referee from "../../referee/Referee";
 
 const verticalAxis = [1, 2, 3, 4, 5, 6, 7, 8];
 const horizontalAxis = ["a", "b", "c", "d", "e", "f", "g", "h"];
@@ -8,6 +9,15 @@ interface Piece {
   image: string;
   x: number;
   y: number;
+}
+
+export enum PieceType {
+  PAWN,
+  BISHOP,
+  KNIGHT,
+  ROOK,
+  QUEEN,
+  KING
 }
 
 const initialBoardState: Piece[] = [];
@@ -42,6 +52,7 @@ export default function Chessboard() {
   const [gridY, setGridY] = useState(0);
   const [pieces, setPieces] = useState<Piece[]>(initialBoardState);
   const chessboardRef = useRef<HTMLDivElement>(null);
+  const referee = new Referee();
 
   // função para agarrar a peça do tabuleiro
   function grabPiece(e: React.MouseEvent) {
@@ -100,6 +111,9 @@ export default function Chessboard() {
       const x = Math.floor((e.clientX - chessboard.offsetLeft) / 100);
       const y = Math.abs(Math.ceil((e.clientY - chessboard.offsetTop - 800) / 100));
 
+      referee.isValidMove();
+
+      //atualiza a posição da peça
       setPieces(value => {
         const pieces = value.map(p => {
           if(p.x === gridX && p.y === gridY) {
