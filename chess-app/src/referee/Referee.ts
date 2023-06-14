@@ -29,8 +29,12 @@ export default class Referee {
       if (team === TeamType.OUR) {
         // checando se é o primeiro movimento
         if (py === 1) {
-          if (px === x && (y - py === 1 || y - py === 2)) {
+          if (px === x && y - py === 1) {
             if (!this.tileIsOccupied(x, y, boardState)) {
+                return true;
+            }
+          } else if (px === x && y - py === 2) {
+            if (!this.tileIsOccupied(x, y, boardState) && !this.tileIsOccupied(x, y-1, boardState)){
                 return true;
             }
           }
@@ -45,12 +49,20 @@ export default class Referee {
         // movimento do peão preto
       } else {
         if (py === 6) {
-          if (px === x && (y - py === -1 || y - py === -2)) {
-            return true;
+          if (px === x && y - py === -1) {
+            if (!this.tileIsOccupied(x, y, boardState)) { 
+                return true;
+            }
+          } else if(px === x && y - py === -2) {
+            if (!this.tileIsOccupied(x, y, boardState) && !this.tileIsOccupied(x, y+1, boardState) ) { 
+                return true;
+            }
           }
         } else {
           if (px === x && y - py === -1) {
-            return true;
+            if(!this.tileIsOccupied(x, y, boardState)) {
+                return true;
+            }
           }
         }
       }
