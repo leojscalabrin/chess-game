@@ -26,7 +26,7 @@ export default class Referee {
     if (type === PieceType.PAWN) {
       const specialRow = team === TeamType.OUR ? 1 : 6;
       const pawnDirection = team === TeamType.OUR ? 1 : -1;
-
+      //lógica do movimento
       if(px === x && py === specialRow && y - py === 2*pawnDirection) {
         if (
             !this.tileIsOccupied(x, y, boardState) &&
@@ -38,6 +38,12 @@ export default class Referee {
         if (!this.tileIsOccupied(x, y, boardState)) {
             return true;
           }
+      }
+      //lógica do ataque
+      else if(x -py === -1 && y - py === pawnDirection) {
+        //ataque canto superior ou inferior esquerdo
+      } else if(x - px === 1 && y - py === pawnDirection) {
+        //ataque canta superior ou inferior direito
       }
     }
 
