@@ -184,6 +184,25 @@ export default function Chessboard() {
       );
 
       const currentPiece = pieces.find(p => p.x === gridX && p.y === gridY);
+      const attackedPiece = pieces.find(p => p.x === x && p.y === y);
+
+      if(currentPiece) {
+        const validMove = referee.isValidMove(gridX, gridY, x, y, currentPiece.type, currentPiece.team, pieces);
+
+        //função reduce
+        //results => array de resultados
+        //piece => um único objeto do array inicial
+
+        setPieces((value) => {
+          const pieces = value.reduce((results, piece) => {
+            results.push(piece)
+
+            return results
+          }, [] as Piece[])
+
+          return pieces
+        })
+      }
 
       //atualiza a posição da peça
       setPieces((value) => {
