@@ -50,7 +50,7 @@ export default class Referee {
           }
       }
       //lógica do ataque
-      else if(x -py === -1 && y - py === pawnDirection) {
+      else if(x - py === -1 && y - py === pawnDirection) {
         //ataque canto superior ou inferior esquerdo
         if(this.tileIsOccupiedByOpponent(x, y, boardState, team)){
           return true;
