@@ -14,6 +14,16 @@ export default class Referee {
     }
   }
 
+  tileIsOccupiedByOpponent(x: number, y: number, boardState: Piece[], team: TeamType): boolean{
+    const piece = boardState.find((p) => p.x === x && p.y === y && p.team !== team);
+
+    if (piece) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   isValidMove(
     px: number,
     py: number,
@@ -42,8 +52,14 @@ export default class Referee {
       //lógica do ataque
       else if(x -py === -1 && y - py === pawnDirection) {
         //ataque canto superior ou inferior esquerdo
+        if(this.tileIsOccupiedByOpponent(x, y, boardState, team)){
+          return true;
+        }
       } else if(x - px === 1 && y - py === pawnDirection) {
         //ataque canta superior ou inferior direito
+        if(this.tileIsOccupiedByOpponent(x, y, boardState, team)){
+          return true;
+        }
       }
     }
 

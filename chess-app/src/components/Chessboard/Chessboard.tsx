@@ -183,6 +183,8 @@ export default function Chessboard() {
         Math.ceil((e.clientY - chessboard.offsetTop - 800) / 100)
       );
 
+      const currentPiece = pieces.find(p => p.x === gridX && p.y === gridY);
+
       //atualiza a posição da peça
       setPieces((value) => {
         const pieces = value.map((p) => {
