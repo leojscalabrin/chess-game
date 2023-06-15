@@ -183,54 +183,39 @@ export default function Chessboard() {
         Math.ceil((e.clientY - chessboard.offsetTop - 800) / 100)
       );
 
-      const currentPiece = pieces.find(p => p.x === gridX && p.y === gridY);
-      const attackedPiece = pieces.find(p => p.x === x && p.y === y);
+      const currentPiece = pieces.find((p) => p.x === gridX && p.y === gridY);
+      const attackedPiece = pieces.find((p) => p.x === x && p.y === y);
 
-      if(currentPiece) {
-        const validMove = referee.isValidMove(gridX, gridY, x, y, currentPiece.type, currentPiece.team, pieces);
+      if (currentPiece) {
+        const validMove = referee.isValidMove(
+          gridX,
+          gridY,
+          x,
+          y,
+          currentPiece.type,
+          currentPiece.team,
+          pieces
+        );
 
-        //função reduce
-        //results => array de resultados
-        //piece => um único objeto do array inicial
+        if (validMove) {
+          //atualiza a posição da peça
+          //se a peça é comida, remove ela
+          const updatedPieces = pieces.reduce((results, piece) => {
+            if (piece.x === currentPiece.x && piece.y === currentPiece.y) {
+              piece.x = x;
+              piece.y = y;
+              results.push(piece);
+            } else if (!(piece.x === x && piece.y === y)) {
+              results.push(piece);
+            }
 
-        setPieces((value) => {
-          const pieces = value.reduce((results, piece) => {
-            results.push(piece)
+            return results;
+          }, [] as Piece[]);
 
-            return results
-          }, [] as Piece[])
-
-          return pieces
-        })
+          setPieces(updatedPieces)
+        }
       }
 
-      //atualiza a posição da peça
-      setPieces((value) => {
-        const pieces = value.map((p) => {
-          if (p.x === gridX && p.y === gridY) {
-            const validMove = referee.isValidMove(
-              gridX,
-              gridY,
-              x,
-              y,
-              p.type,
-              p.team,
-              value
-            );
-
-            if (validMove) {
-              p.x = x;
-              p.y = y;
-            } else {
-              activePiece.style.position = "relative";
-              activePiece.style.removeProperty("top");
-              activePiece.style.removeProperty("left");
-            }
-          }
-          return p;
-        });
-        return pieces;
-      });
       setActivePiece(null);
     }
   }
