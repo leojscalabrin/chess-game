@@ -14,14 +14,45 @@ export default class Referee {
     }
   }
 
-  tileIsOccupiedByOpponent(x: number, y: number, boardState: Piece[], team: TeamType): boolean{
-    const piece = boardState.find((p) => p.x === x && p.y === y && p.team !== team);
+  tileIsOccupiedByOpponent(
+    x: number,
+    y: number,
+    boardState: Piece[],
+    team: TeamType
+  ): boolean {
+    const piece = boardState.find(
+      (p) => p.x === x && p.y === y && p.team !== team
+    );
 
     if (piece) {
       return true;
     } else {
       return false;
     }
+  }
+
+  isEnPassantMove(
+    px: number,
+    py: number,
+    x: number,
+    y: number,
+    type: PieceType,
+    team: TeamType,
+    boardState: Piece[]
+  ) {
+    const pawnDirection = team === TeamType.OUR ? 1 : -1;
+
+    if (type === PieceType.PAWN) {
+      if ((x - py === -1 || x - px === 1) && y - py === pawnDirection) {
+        
+      }
+    }
+
+    const piece = boardState.find(
+      (p) => p.x === x && p.y === y - pawnDirection
+    );
+
+    return false;
   }
 
   isValidMove(
@@ -37,27 +68,27 @@ export default class Referee {
       const specialRow = team === TeamType.OUR ? 1 : 6;
       const pawnDirection = team === TeamType.OUR ? 1 : -1;
       //lógica do movimento
-      if(px === x && py === specialRow && y - py === 2 * pawnDirection) {
+      if (px === x && py === specialRow && y - py === 2 * pawnDirection) {
         if (
-            !this.tileIsOccupied(x, y, boardState) &&
-            !this.tileIsOccupied(x, y - pawnDirection, boardState)
-          ) {
-            return true;
-          }
-      } else if (px === x && y - py === pawnDirection ) {
-        if (!this.tileIsOccupied(x, y, boardState)) {
-            return true;
-          }
-      }
-      //lógica do ataque
-      else if(x - py === -1 && y - py === pawnDirection) {
-        //ataque canto superior ou inferior esquerdo
-        if(this.tileIsOccupiedByOpponent(x, y, boardState, team)){
+          !this.tileIsOccupied(x, y, boardState) &&
+          !this.tileIsOccupied(x, y - pawnDirection, boardState)
+        ) {
           return true;
         }
-      } else if(x - px === 1 && y - py === pawnDirection) {
+      } else if (px === x && y - py === pawnDirection) {
+        if (!this.tileIsOccupied(x, y, boardState)) {
+          return true;
+        }
+      }
+      //lógica do ataque
+      else if (x - py === -1 && y - py === pawnDirection) {
+        //ataque canto superior ou inferior esquerdo
+        if (this.tileIsOccupiedByOpponent(x, y, boardState, team)) {
+          return true;
+        }
+      } else if (x - px === 1 && y - py === pawnDirection) {
         //ataque canta superior ou inferior direito
-        if(this.tileIsOccupiedByOpponent(x, y, boardState, team)){
+        if (this.tileIsOccupiedByOpponent(x, y, boardState, team)) {
           return true;
         }
       }

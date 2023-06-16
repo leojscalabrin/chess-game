@@ -11,6 +11,7 @@ export interface Piece {
   y: number;
   type: PieceType;
   team: TeamType;
+  enPassant?: boolean;
 }
 
 export enum TeamType {
@@ -196,6 +197,16 @@ export default function Chessboard() {
           currentPiece.team,
           pieces
         );
+
+        const isEnPassantMove = referee.isEnPassantMove(
+          gridX,
+          gridY,
+          x,
+          y,
+          currentPiece.type,
+          currentPiece.team,
+          pieces
+        )
 
         if (validMove) {
           //atualiza a posição da peça
