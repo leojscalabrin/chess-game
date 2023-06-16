@@ -37,7 +37,7 @@ export default class Referee {
       const specialRow = team === TeamType.OUR ? 1 : 6;
       const pawnDirection = team === TeamType.OUR ? 1 : -1;
       //lógica do movimento
-      if(px === x && py === specialRow && y - py === 2*pawnDirection) {
+      if(px === x && py === specialRow && y - py === 2 * pawnDirection) {
         if (
             !this.tileIsOccupied(x, y, boardState) &&
             !this.tileIsOccupied(x, y - pawnDirection, boardState)

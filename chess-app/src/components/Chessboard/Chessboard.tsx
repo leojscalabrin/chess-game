@@ -201,7 +201,7 @@ export default function Chessboard() {
           //atualiza a posição da peça
           //se a peça é comida, remove ela
           const updatedPieces = pieces.reduce((results, piece) => {
-            if (piece.x === currentPiece.x && piece.y === currentPiece.y) {
+            if (piece.x === gridX && piece.y === gridY) {
               piece.x = x;
               piece.y = y;
               results.push(piece);
@@ -212,10 +212,14 @@ export default function Chessboard() {
             return results;
           }, [] as Piece[]);
 
-          setPieces(updatedPieces)
+          setPieces(updatedPieces);
+        } else {
+          //reseta a posição da peça
+          activePiece.style.position = "relative";
+          activePiece.style.removeProperty("top");
+          activePiece.style.removeProperty("left");
         }
       }
-
       setActivePiece(null);
     }
   }
