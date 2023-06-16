@@ -213,10 +213,18 @@ export default function Chessboard() {
           //se a peça é comida, remove ela
           const updatedPieces = pieces.reduce((results, piece) => {
             if (piece.x === gridX && piece.y === gridY) {
+              if(Math.abs(gridY - y) === 2 && piece.type === PieceType.PAWN) {
+                piece.enPassant = true;
+              } else {
+                piece.enPassant = false;
+              }
               piece.x = x;
               piece.y = y;
               results.push(piece);
             } else if (!(piece.x === x && piece.y === y)) {
+              if(piece.type === PieceType.PAWN) {
+                piece.enPassant = false;
+              }
               results.push(piece);
             }
 
