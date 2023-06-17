@@ -44,13 +44,14 @@ export default class Referee {
 
     if (type === PieceType.PAWN) {
       if ((x - py === -1 || x - px === 1) && y - py === pawnDirection) {
-        
+        const piece = boardState.find(
+          (p) => p.x === x && p.y === y - pawnDirection && p.enPassant
+        );
+        if(piece){
+          return true
+        }
       }
     }
-
-    const piece = boardState.find(
-      (p) => p.x === x && p.y === y - pawnDirection
-    );
 
     return false;
   }
