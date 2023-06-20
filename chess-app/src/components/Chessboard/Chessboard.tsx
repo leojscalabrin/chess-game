@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
-import Tile from "../Tile/Tile";
 import "./Chessboard.css";
+import Tile from "../Tile/Tile";
 import Referee from "../../referee/Referee";
 import { verticalAxis, horizontalAxis, Piece, PieceType, TeamType, initialBoardState } from "../../Constants";
 
@@ -74,8 +74,8 @@ export default function Chessboard() {
         Math.ceil((e.clientY - chessboard.offsetTop - 800) / 100)
       );
 
-      const currentPiece = pieces.find((p) => p.x === gridX && p.y === gridY);
-      const attackedPiece = pieces.find((p) => p.x === x && p.y === y);
+      const currentPiece = pieces.find((p) => p.position.x === gridX && p.position.y === gridY);
+      const attackedPiece = pieces.find((p) => p.position.x === x && p.position.y === y);
 
       if (currentPiece) {
         const validMove = referee.isValidMove(
@@ -102,12 +102,12 @@ export default function Chessboard() {
 
         if(isEnPassantMove) {
           const updatedPieces = pieces.reduce((results, piece) => {
-            if(piece.x === gridX && piece.y === gridY) {
+            if(piece.position.x === gridX && piece.position.y === gridY) {
               piece.enPassant = false;
-              piece.x = x;
-              piece.y = y;
+              piece.position.x = x;
+              piece.position.y = y;
               results.push(piece);
-            } else if(!(piece.x === x && piece.y === y - pawnDirection)) {
+            } else if(!(piece.position.x === x && piece.position.y === y - pawnDirection)) {
               if(piece.type === PieceType.PAWN) {
                 piece.enPassant = false;
               }
@@ -122,16 +122,16 @@ export default function Chessboard() {
           //atualiza a posição da peça
           //se a peça é comida, remove ela
           const updatedPieces = pieces.reduce((results, piece) => {
-            if (piece.x === gridX && piece.y === gridY) {
+            if (piece.position.x === gridX && piece.position.y === gridY) {
               if(Math.abs(gridY - y) === 2 && piece.type === PieceType.PAWN) {
                 piece.enPassant = true;
               } else {
                 piece.enPassant = false;
               }
-              piece.x = x;
-              piece.y = y;
+              piece.position.x = x;
+              piece.position.y = y;
               results.push(piece);
-            } else if (!(piece.x === x && piece.y === y)) {
+            } else if (!(piece.position.x === x && piece.position.y === y)) {
               if(piece.type === PieceType.PAWN) {
                 piece.enPassant = false;
               }
@@ -161,7 +161,7 @@ export default function Chessboard() {
       let image = "";
 
       pieces.forEach((p) => {
-        if (p.x === i && p.y === j) {
+        if (p.position.x === i && p.position.y === j) {
           image = p.image;
         }
       });

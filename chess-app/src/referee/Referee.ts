@@ -6,7 +6,7 @@ import {
 
 export default class Referee {
   tileIsOccupied(x: number, y: number, boardState: Piece[]): boolean {
-    const piece = boardState.find((p) => p.x === x && p.y === y);
+    const piece = boardState.find((p) => p.position.x === x && p.position.y === y);
     if (piece) {
       return true;
     } else {
@@ -21,7 +21,7 @@ export default class Referee {
     team: TeamType
   ): boolean {
     const piece = boardState.find(
-      (p) => p.x === x && p.y === y && p.team !== team
+      (p) => p.position.x === x && p.position.y === y && p.team !== team
     );
 
     if (piece) {
@@ -45,7 +45,7 @@ export default class Referee {
     if (type === PieceType.PAWN) {
       if ((x - py === -1 || x - px === 1) && y - py === pawnDirection) {
         const piece = boardState.find(
-          (p) => p.x === x && p.y === y - pawnDirection && p.enPassant
+          (p) => p.position.x === x && p.position.y === y - pawnDirection && p.enPassant
         );
         if(piece){
           return true

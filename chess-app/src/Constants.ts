@@ -1,18 +1,9 @@
 export const verticalAxis = [1, 2, 3, 4, 5, 6, 7, 8];
 export const horizontalAxis = ["a", "b", "c", "d", "e", "f", "g", "h"];
 
-export interface Piece {
-  image: string;
+export interface Position {
   x: number;
   y: number;
-  type: PieceType;
-  team: TeamType;
-  enPassant?: boolean;
-}
-
-export enum TeamType {
-  OPPONENT,
-  OUR,
 }
 
 export enum PieceType {
@@ -24,340 +15,448 @@ export enum PieceType {
   KING,
 }
 
+export enum TeamType {
+  OPPONENT,
+  OUR,
+}
+export interface Piece {
+  image: string;
+  position: Position;
+  type: PieceType;
+  team: TeamType;
+  enPassant?: boolean;
+}
+
 export const initialBoardState: Piece[] = [
   {
     image: `assets/images/rook_b.png`,
-    x: 0,
-    y: 7,
+    position: {
+      x: 0,
+      y: 7,
+    },
     type: PieceType.ROOK,
     team: TeamType.OPPONENT,
   },
   {
     image: `assets/images/knight_b.png`,
-    x: 1,
-    y: 7,
+    position: {
+      x: 1,
+      y: 7,
+    },
     type: PieceType.KNIGHT,
     team: TeamType.OPPONENT,
   },
   {
     image: `assets/images/bishop_b.png`,
-    x: 2,
-    y: 7,
+    position: {
+      x: 2,
+      y: 7,
+    },
     type: PieceType.BISHOP,
     team: TeamType.OPPONENT,
   },
   {
     image: `assets/images/queen_b.png`,
-    x: 3,
-    y: 7,
+    position: {
+      x: 3,
+      y: 7,
+    },
     type: PieceType.QUEEN,
     team: TeamType.OPPONENT,
   },
   {
     image: `assets/images/king_b.png`,
-    x: 4,
-    y: 7,
+    position: {
+      x: 4,
+      y: 7,
+    },
     type: PieceType.KING,
     team: TeamType.OPPONENT,
   },
   {
     image: `assets/images/bishop_b.png`,
-    x: 5,
-    y: 7,
+    position: {
+      x: 5,
+      y: 7,
+    },
     type: PieceType.BISHOP,
     team: TeamType.OPPONENT,
   },
   {
     image: `assets/images/knight_b.png`,
-    x: 6,
-    y: 7,
+    position: {
+      x: 6,
+      y: 7,
+    },
     type: PieceType.KNIGHT,
     team: TeamType.OPPONENT,
   },
   {
     image: `assets/images/rook_b.png`,
-    x: 7,
-    y: 7,
+    position: {
+      x: 7,
+      y: 7,
+    },
     type: PieceType.ROOK,
     team: TeamType.OPPONENT,
   },
   {
     image: `assets/images/pawn_b.png`,
-    x: 0,
-    y: 6,
+    position: {
+      x: 0,
+      y: 6,
+    },
     type: PieceType.PAWN,
     team: TeamType.OPPONENT,
   },
   {
     image: `assets/images/pawn_b.png`,
-    x: 1,
-    y: 6,
+    position: {
+      x: 1,
+      y: 6,
+    },
     type: PieceType.PAWN,
     team: TeamType.OPPONENT,
   },
   {
     image: `assets/images/pawn_b.png`,
-    x: 2,
-    y: 6,
+    position: {
+      x: 2,
+      y: 6,
+    },
     type: PieceType.PAWN,
     team: TeamType.OPPONENT,
   },
   {
     image: `assets/images/pawn_b.png`,
-    x: 3,
-    y: 6,
+    position: {
+      x: 3,
+      y: 6,
+    },
     type: PieceType.PAWN,
     team: TeamType.OPPONENT,
   },
   {
     image: `assets/images/pawn_b.png`,
-    x: 4,
-    y: 6,
+    position: {
+      x: 4,
+      y: 6,
+    },
     type: PieceType.PAWN,
     team: TeamType.OPPONENT,
   },
   {
     image: `assets/images/pawn_b.png`,
-    x: 5,
-    y: 6,
+    position: {
+      x: 5,
+      y: 6,
+    },
     type: PieceType.PAWN,
     team: TeamType.OPPONENT,
   },
   {
     image: `assets/images/pawn_b.png`,
-    x: 6,
-    y: 6,
+    position: {
+      x: 6,
+      y: 6,
+    },
     type: PieceType.PAWN,
     team: TeamType.OPPONENT,
   },
   {
     image: `assets/images/pawn_b.png`,
-    x: 7,
-    y: 6,
+    position: {
+      x: 7,
+      y: 6,
+    },
     type: PieceType.PAWN,
     team: TeamType.OPPONENT,
   },
   {
     image: `assets/images/rook_b.png`,
-    x: 0,
-    y: 7,
+    position: {
+      x: 0,
+      y: 7,
+    },
     type: PieceType.ROOK,
     team: TeamType.OPPONENT,
   },
   {
     image: `assets/images/knight_b.png`,
-    x: 1,
-    y: 7,
+    position: {
+      x: 1,
+      y: 7,
+    },
     type: PieceType.KNIGHT,
     team: TeamType.OPPONENT,
   },
   {
     image: `assets/images/bishop_b.png`,
-    x: 2,
-    y: 7,
+    position: {
+      x: 2,
+      y: 7,
+    },
     type: PieceType.BISHOP,
     team: TeamType.OPPONENT,
   },
   {
     image: `assets/images/queen_b.png`,
-    x: 3,
-    y: 7,
+    position: {
+      x: 3,
+      y: 7,
+    },
     type: PieceType.QUEEN,
     team: TeamType.OPPONENT,
   },
   {
     image: `assets/images/king_b.png`,
-    x: 4,
-    y: 7,
+    position: {
+      x: 4,
+      y: 7,
+    },
     type: PieceType.KING,
     team: TeamType.OPPONENT,
   },
   {
     image: `assets/images/bishop_b.png`,
-    x: 5,
-    y: 7,
+    position: {
+      x: 5,
+      y: 7,
+    },
     type: PieceType.BISHOP,
     team: TeamType.OPPONENT,
   },
   {
     image: `assets/images/knight_b.png`,
-    x: 6,
-    y: 7,
+    position: {
+      x: 6,
+      y: 7,
+    },
     type: PieceType.KNIGHT,
     team: TeamType.OPPONENT,
   },
   {
     image: `assets/images/rook_b.png`,
-    x: 7,
-    y: 7,
+    position: {
+      x: 7,
+      y: 7,
+    },
     type: PieceType.ROOK,
     team: TeamType.OPPONENT,
   },
   {
     image: `assets/images/pawn_b.png`,
-    x: 0,
-    y: 6,
+    position: {
+      x: 0,
+      y: 6,
+    },
     type: PieceType.PAWN,
     team: TeamType.OPPONENT,
   },
   {
     image: `assets/images/pawn_b.png`,
-    x: 1,
-    y: 6,
+    position: {
+      x: 1,
+      y: 6,
+    },
     type: PieceType.PAWN,
     team: TeamType.OPPONENT,
   },
   {
     image: `assets/images/pawn_b.png`,
-    x: 2,
-    y: 6,
+    position: {
+      x: 2,
+      y: 6,
+    },
     type: PieceType.PAWN,
     team: TeamType.OPPONENT,
   },
   {
     image: `assets/images/pawn_b.png`,
-    x: 3,
-    y: 6,
+    position: {
+      x: 3,
+      y: 6,
+    },
     type: PieceType.PAWN,
     team: TeamType.OPPONENT,
   },
   {
     image: `assets/images/pawn_b.png`,
-    x: 4,
-    y: 6,
+    position: {
+      x: 4,
+      y: 6,
+    },
     type: PieceType.PAWN,
     team: TeamType.OPPONENT,
   },
   {
     image: `assets/images/pawn_b.png`,
-    x: 5,
-    y: 6,
+    position: {
+      x: 5,
+      y: 6,
+    },
     type: PieceType.PAWN,
     team: TeamType.OPPONENT,
   },
   {
     image: `assets/images/pawn_b.png`,
-    x: 6,
-    y: 6,
+    position: {
+      x: 6,
+      y: 6,
+    },
     type: PieceType.PAWN,
     team: TeamType.OPPONENT,
   },
   {
     image: `assets/images/pawn_b.png`,
-    x: 7,
-    y: 6,
+    position: {
+      x: 7,
+      y: 6,
+    },
     type: PieceType.PAWN,
     team: TeamType.OPPONENT,
   },
   {
     image: `assets/images/rook_w.png`,
-    x: 0,
-    y: 0,
+    position: {
+      x: 0,
+      y: 0,
+    },
     type: PieceType.ROOK,
     team: TeamType.OUR,
   },
   {
     image: `assets/images/knight_w.png`,
-    x: 1,
-    y: 0,
+    position: {
+      x: 1,
+      y: 0,
+    },
     type: PieceType.KNIGHT,
     team: TeamType.OUR,
   },
   {
     image: `assets/images/bishop_w.png`,
-    x: 2,
-    y: 0,
+    position: {
+      x: 2,
+      y: 0,
+    },
     type: PieceType.BISHOP,
     team: TeamType.OUR,
   },
   {
     image: `assets/images/queen_w.png`,
-    x: 3,
-    y: 0,
+    position: {
+      x: 3,
+      y: 0,
+    },
     type: PieceType.QUEEN,
     team: TeamType.OUR,
   },
   {
     image: `assets/images/king_w.png`,
-    x: 4,
-    y: 0,
+    position: {
+      x: 4,
+      y: 0,
+    },
     type: PieceType.KING,
     team: TeamType.OUR,
   },
   {
     image: `assets/images/bishop_w.png`,
-    x: 5,
-    y: 0,
+    position: {
+      x: 5,
+      y: 0,
+    },
     type: PieceType.BISHOP,
     team: TeamType.OUR,
   },
   {
     image: `assets/images/knight_w.png`,
-    x: 6,
-    y: 0,
+    position: {
+      x: 6,
+      y: 0,
+    },
     type: PieceType.KNIGHT,
     team: TeamType.OUR,
   },
   {
     image: `assets/images/rook_w.png`,
-    x: 7,
-    y: 0,
+    position: {
+      x: 7,
+      y: 0,
+    },
     type: PieceType.ROOK,
     team: TeamType.OUR,
   },
   {
     image: `assets/images/pawn_w.png`,
-    x: 0,
-    y: 1,
+    position: {
+      x: 0,
+      y: 1,
+    },
     type: PieceType.PAWN,
     team: TeamType.OUR,
   },
   {
     image: `assets/images/pawn_w.png`,
-    x: 1,
-    y: 1,
+    position: {
+      x: 1,
+      y: 1,
+    },
     type: PieceType.PAWN,
     team: TeamType.OUR,
   },
   {
     image: `assets/images/pawn_w.png`,
-    x: 2,
-    y: 1,
+    position: {
+      x: 2,
+      y: 1,
+    },
     type: PieceType.PAWN,
     team: TeamType.OUR,
   },
   {
     image: `assets/images/pawn_w.png`,
-    x: 3,
-    y: 1,
+    position: {
+      x: 3,
+      y: 1,
+    },
     type: PieceType.PAWN,
     team: TeamType.OUR,
   },
   {
     image: `assets/images/pawn_w.png`,
-    x: 4,
-    y: 1,
+    position: {
+      x: 4,
+      y: 1,
+    },
     type: PieceType.PAWN,
     team: TeamType.OUR,
   },
   {
     image: `assets/images/pawn_w.png`,
-    x: 5,
-    y: 1,
+    position: {
+      x: 5,
+      y: 1,
+    },
     type: PieceType.PAWN,
     team: TeamType.OUR,
   },
   {
     image: `assets/images/pawn_w.png`,
-    x: 6,
-    y: 1,
+    position: {
+      x: 6,
+      y: 1,
+    },
     type: PieceType.PAWN,
     team: TeamType.OUR,
   },
   {
     image: `assets/images/pawn_w.png`,
-    x: 7,
-    y: 1,
+    position: {
+      x: 7,
+      y: 1,
+    },
     type: PieceType.PAWN,
     team: TeamType.OUR,
   },
